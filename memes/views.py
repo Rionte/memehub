@@ -9,12 +9,10 @@ def memes(request):
     context = {
         "projects": projects_
     }
-    template = loader.get_template("home.html")
     return render(request, "home.html", context)
 
 def contact(request):
     context = {
         "projects": projects_
     }
-    template = loader.get_template("content.html")
     return render(request, "content.html", context)
