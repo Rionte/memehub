@@ -18,11 +18,19 @@ def allowed_file(filename):
 
 @app.route("/")
 def hello():
-    return render_template("index.html")
+    ctx = {}
+    return render_template("base.html", ctx=ctx)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     print("HI")
 
+@app.route('/contact')
+def contact():
+    return render_template("contact.html")
+
 if __name__ == "__main__":
+    #app.secret_key = 'memehubrionte'
+    #app.config['SESSION_TYPE'] = 'filesystem'
+    #sess.init_app(app)
     app.run(host='127.0.0.1')

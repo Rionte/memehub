@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Hub</title>
+    <link rel="stylesheet" href="/static/dist/css/output.css">
+    <nav class="flex justify-between bg-black text-white py-4 text-xl shadow-xl">
+        <span class="ml-10">memehub.toxi.ca</span>
+        <span class="flex justify-between mx-10">
+            <a href="/" class="mr-5 {% if request.path == '/' %} text-blue-600 {% endif %}">Home</a>
+            <a href="/contact" class="mr-5 {% if request.path == '/contact' %} text-blue-600 {% endif %}">Contact</a>
+        </span>
+    </nav>
+</head>
+<body>
+    <img src="url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjEwNzQtMDhhLWt2a2N6ZG4xLmpwZw.jpg')">
+    {% block body %} {% endblock %}
+</body>
+</html>
