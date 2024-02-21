@@ -22,6 +22,7 @@ def hello():
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
+    print("HI")
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1')
