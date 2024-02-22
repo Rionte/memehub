@@ -6,12 +6,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 import wtforms
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, FileField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 import datetime
 
-UPLOAD_FOLDER = '/path/to/the/uploads'
+UPLOAD_FOLDER = '/static/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
@@ -44,6 +44,13 @@ with app.app_context():
         message = db.Column(db.String(600), nullable=False, unique=False)
         date = db.Column(db.String(50), nullable=True, unique=False, default=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
+    class Meme(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        title = db.Column(db.String(80), nullable=False, unique=False)
+        path = db.Column(db.String(100), nullable=False, unique=True)
+        author_id = db.Column(db.Integer, nullable=False)
+        date = db.Column(db.String(50), nullable=True, unique=False, default=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
     class RegisterForm(FlaskForm):
         username = StringField(validators=[InputRequired(), Length(min=4, max=15)], render_kw={'placeholder': 'Username'})
         password = PasswordField(validators=[InputRequired(), Length(min=4, max=30)], render_kw={'placeholder': 'Password'})
@@ -65,6 +72,11 @@ with app.app_context():
         message = TextAreaField(validators=[InputRequired(), Length(min=1, max=600)])
         submit = SubmitField("Send Message")
 
+    class MemeForm(FlaskForm):
+        title = StringField(validators=[InputRequired(), Length(min=1, max=80)])
+        image = FileField(validators=[InputRequired()])
+        
+
     db.create_all()
 
 def allowed_file(filename):
@@ -75,7 +87,7 @@ def allowed_file(filename):
 @login_required
 def main():
     isauth = current_user.is_authenticated
-    return render_template("base.html", isauth=isauth)
+    return render_template("home.html", isauth=isauth)
 
 @app.route('/contact', methods=['GET', 'POST'])
 @login_required
