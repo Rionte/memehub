@@ -34,6 +34,8 @@ with app.app_context():
         id = db.Column(db.Integer, primary_key=True)
         username = db.Column(db.String(15), nullable=False, unique=True)
         password = db.Column(db.String(30), nullable=False)
+        is_admin = db.Column(db.Boolean, nullable=False, default=False)
+        date = db.Column(db.String(50), nullable=True, default=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     class Contact(db.Model):
         id = db.Column(db.Integer, primary_key=True)
@@ -62,6 +64,8 @@ with app.app_context():
         title = StringField(validators=[InputRequired(), Length(min=1, max=80)])
         message = TextAreaField(validators=[InputRequired(), Length(min=1, max=600)])
         submit = SubmitField("Send Message")
+
+    db.create_all()
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -126,4 +130,4 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1')
+    app.run(host='0.0.0.0')
