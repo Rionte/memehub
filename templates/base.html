@@ -9,9 +9,9 @@
     <nav class="flex justify-between bg-black text-white py-4 text-xl shadow-2xl">
         <span class="ml-10 font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text animate-gradient">memehub.toxi.ca [BETA]</span>
         <span class="flex justify-between mx-10">
-            <a href="/" class="mr-5 {% if request.path == '/' %} text-blue-600 {% else %} hover:text-blue-400 {% endif %}">Home</a>
-            <a href="/contact" class="mr-5 {% if request.path == '/contact' %} text-blue-600 {% else %} hover:text-blue-400 {% endif %}">Contact</a>
             {% if isauth %}
+                <a href="/" class="mr-5 {% if request.path == '/' %} text-blue-600 {% else %} hover:text-blue-400 {% endif %}">Home</a>
+                <a href="/contact" class="mr-5 {% if request.path == '/contact' %} text-blue-600 {% else %} hover:text-blue-400 {% endif %}">Contact</a>
                 <a href="/logout" class="mr-5 hover:text-blue-400">Logout</a>
             {% else %}
                 <a href="/login" class="mr-5 {% if request.path == '/login' %} text-blue-600 {% else %} hover:text-blue-400 {% endif %}">Login</a>

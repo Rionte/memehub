@@ -6,15 +6,16 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 import wtforms
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
+import datetime
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -34,6 +35,13 @@ with app.app_context():
         username = db.Column(db.String(15), nullable=False, unique=True)
         password = db.Column(db.String(30), nullable=False)
 
+    class Contact(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        username = db.Column(db.String(15), nullable=False, unique=False)
+        title = db.Column(db.String(80), nullable=False, unique=False)
+        message = db.Column(db.String(600), nullable=False, unique=False)
+        date = db.Column(db.String(50), nullable=True, unique=False, default=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
     class RegisterForm(FlaskForm):
         username = StringField(validators=[InputRequired(), Length(min=4, max=15)], render_kw={'placeholder': 'Username'})
         password = PasswordField(validators=[InputRequired(), Length(min=4, max=30)], render_kw={'placeholder': 'Password'})
@@ -50,6 +58,11 @@ with app.app_context():
         password = PasswordField(validators=[InputRequired(), Length(min=4, max=30)], render_kw={'placeholder': 'Password'})
         submit = SubmitField("Login")
 
+    class ContactForm(FlaskForm):
+        title = StringField(validators=[InputRequired(), Length(min=1, max=80)])
+        message = TextAreaField(validators=[InputRequired(), Length(min=1, max=600)])
+        submit = SubmitField("Send Message")
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -60,11 +73,19 @@ def main():
     isauth = current_user.is_authenticated
     return render_template("base.html", isauth=isauth)
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 @login_required
 def contact():
+    form = ContactForm()
+
+    if form.validate_on_submit():
+        new_contact = Contact(username=current_user.username, title=form.title.data, message=form.message.data)
+        db.session.add(new_contact)
+        db.session.commit()
+        return redirect(url_for('main'))
+
     isauth = current_user.is_authenticated
-    return render_template('contact.html', isauth=isauth)
+    return render_template('contact.html', form=form, isauth=isauth)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
