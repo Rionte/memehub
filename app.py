@@ -49,6 +49,8 @@ with app.app_context():
         title = db.Column(db.String(80), nullable=False, unique=False)
         path = db.Column(db.String(100), nullable=False, unique=True)
         author_id = db.Column(db.Integer, nullable=False)
+        likes = db.Column(db.Integer, nullable=False)
+        dislikes = db.Column(db.Integer, nullable=False)
         date = db.Column(db.String(50), nullable=True, unique=False, default=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     class RegisterForm(FlaskForm):
