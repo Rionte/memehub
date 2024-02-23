@@ -87,7 +87,7 @@ def allowed_file(filename):
 @login_required
 def main():
     isauth = current_user.is_authenticated
-    return render_template("home.html", isauth=isauth)
+    return render_template("home.html", isauth=isauth, username=current_user.username)
 
 @app.route('/contact', methods=['GET', 'POST'])
 @login_required
@@ -101,7 +101,7 @@ def contact():
         return redirect(url_for('main'))
 
     isauth = current_user.is_authenticated
-    return render_template('contact.html', form=form, isauth=isauth)
+    return render_template('contact.html', form=form, isauth=isauth, username=current_user.username)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

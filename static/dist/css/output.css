@@ -9978,9 +9978,9 @@ video {
 
 .animate-gradient {
   background-size: 300%;
-  -webkit-animation: animatedgradient 4s ease infinite alternate;
-  -moz-animation: animatedgradient 4s ease infinite alternate;
-  animation: animatedgradient 4s ease infinite alternate;
+  -webkit-animation: animatedgradient 3s ease infinite alternate;
+  -moz-animation: animatedgradient 3s ease infinite alternate;
+  animation: animatedgradient 3s ease infinite alternate;
 }
 
 @keyframes animatedgradient {

@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <p class="mt-12 text-3xl font-bold ml-10">
-        Recent Memes
-    </p>
+    <div class="flex justify-center">
+        <p class="mt-12 text-3xl font-bold ml-10 animate-pulse">
+            Recent Memes
+        </p>
+    </div>
+    <div class="bg-white mt-8 border-2 border-black rounded mx-auto max-w-screen-2xl">
+        <a class="flex items-center justify-between">
+            <img src="/static/images/sitebg.png" class="w-48 h-48 object-cover border-black border-2 m-3">
+            <div class="mr-auto">
+                <p class="text-xl font-semibold">This is an example of a title for a meme.</p>
+                <p class="text-gray-500 italic">author: rionte</p>
+            </div>
+        </a>
+        <hr class="border-gray-700" style="border-width: 1px;">
+        <img src="/static/images/sitebg2.png" class="w-48 h-48 object-cover border-black border-2 m-3">
+        <hr class="border-gray-700" style="border-width: 1px;">
+        <img src="/static/images/sitebg3.png" class="w-48 h-48 object-cover border-black border-2 m-3">
+    </div>
 {% endblock %}

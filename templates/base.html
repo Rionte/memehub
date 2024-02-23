@@ -7,13 +7,18 @@
     <title>Meme Hub</title>
     <link rel="stylesheet" href="/static/dist/css/output.css">
     <nav class="flex justify-between bg-black text-white py-2 text-xl" style="box-shadow: 0px 8px 5px 5px black;">
-        <span class="ml-10 mt-2 font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text animate-gradient">memehub.toxi.ca [OPEN BETA]</span>
+        <span class="ml-10 mt-2 font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text animate-gradient">memehub.toxi.ca [BETA]</span>
         <span class="flex justify-between mx-10">
             {% if isauth %}
+                <a href="/post" class="mr-5 pt-3.5 {% if request.path == '/' %} text-blue-600 {% else %} hover:text-blue-400 {% endif %}">
+                    <svg class="w-5 h-5 text-white" fill="white" viewBox="0 0 400 400">
+                        <path d="M190.234 23.070 C 180.376 24.292,174.331 27.561,172.877 32.457 C 172.332 34.293,172.266 42.120,172.266 104.555 L 172.266 174.594 108.301 174.699 L 44.336 174.805 42.106 175.900 C 29.494 182.093,29.494 221.813,42.106 228.007 L 44.336 229.102 108.301 229.208 L 172.266 229.315 172.268 299.325 C 172.270 374.001,172.196 371.269,174.294 373.658 C 181.889 382.309,218.536 382.445,226.299 373.852 C 228.616 371.287,228.511 374.822,228.513 299.324 L 228.516 229.313 292.285 229.207 L 356.055 229.102 357.929 228.236 C 365.195 224.882,368.259 216.019,367.868 199.486 C 367.545 185.869,364.851 178.932,358.714 175.919 L 356.445 174.805 292.480 174.699 L 228.516 174.594 228.516 104.546 C 228.516 28.702,228.618 32.408,226.444 29.558 C 222.352 24.193,205.515 21.177,190.234 23.070"></path>
+                    </svg>
+                </a>
                 <a href="/" class="mr-5 pt-3 {% if request.path == '/' %} text-blue-600 {% else %} hover:text-blue-400 {% endif %}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                    </svg>                      
+                    </svg>
                 </a>
                 <a href="/contact" class="mr-5 pt-3 {% if request.path == '/contact' %} text-blue-600 {% else %} hover:text-blue-400 {% endif %}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
